@@ -1,0 +1,187 @@
+---
+management_group_name: training-03
+policy_assignments:
+  #
+  # Location Policies
+  #
+  - # Allowed locations
+    name: e56962a6-4747-49cd-b67b-bf8b01975c4c
+    parameters:
+      listOfAllowedLocations:
+        value:
+          - "Australia East"
+          - "Australia Southeast"
+          - "West US 2"
+  - # Allowed locations for resource groups
+    name: e765b5de-1225-4ba3-bd56-1ac6695af988
+    parameters:
+      listOfAllowedLocations:
+        value:
+          - "Australia East"
+          - "Australia Southeast"
+          - "West US 2"
+  - # Azure Cosmos DB allowed locations
+    name: 0473574d-2d43-4217-aefe-941fcdf7e684
+    parameters:
+      listOfAllowedLocations:
+        value:
+          - australiaeast
+          - australiasoutheast
+  #
+  # Encryption Policies
+  #
+  - # Require encryption on Data Lake Store accounts
+    name: a7ff3161-0087-490a-9ad9-ad6217f4f43a
+  #
+  # Backup Policies
+  #
+  - # Geo-redundant backup should be enabled for Azure Database for MariaDB
+    name: 0ec47710-77ff-4a3d-9181-6aa50af424d0
+  - # Geo-redundant backup should be enabled for Azure Database for PostgreSQL
+    name: 48af4db5-9b8b-401c-8e74-076be876a430
+  - # Geo-redundant backup should be enabled for Azure Database for MySQL
+    name: 82339799-d096-41ae-8538-b108becf0970
+  - # Long-term geo-redundant backup should be enabled for Azure SQL Databases
+    name: d38fc420-0735-4ef3-ac11-c806f651a570
+  - # Azure Backup should be enabled for Virtual Machines
+    name: 013e242c-8828-4970-87b3-ab247555486d
+  #
+  # Endpoint Protection Policies
+  #
+  - # App Configuration should use a private link
+    name: ca610c1d-041c-4332-9d88-7ed3094967c7
+  - # Only secure connections to your Redis Cache should be enabled
+    name: 22bee202-a82f-4305-9a2a-6d7f44d4dedb
+  - # Container Registries should not allow unrestricted network access
+    name: d0793b48-0edc-4296-a390-4c75d1bdfd71
+  - # Container Registries should use private links
+    name: e8eef0a8-67cf-4eb4-9386-14b0e78733d4
+  #
+  # Certificate Policies
+  #
+  - # Manage allowed certificate key types
+    name: 1151cede-290b-4ba0-8b38-0ad145ac888f
+    parameters:
+      allowedKeyTypes:
+        value:
+          - RSA
+          - RSA-HSM
+  - # Manage certificates that are within a specified number of days of expiration
+    name: f772fb64-8e40-40ad-87bc-7706e1949427
+    parameters:
+      daysToExpire:
+        value: 30
+  - # Manage certificate lifetime action triggers
+    name: 12ef42cb-9903-4e39-9c26-422d29570417
+    parameters:
+      maximumPercentageLife:
+        value: 80
+      minimumDaysBeforeExpiry:
+        value: 30
+  #
+  # Kubernetes Policies
+  #
+  - # [Preview]: Kubernetes Management Policy add-on should be installed and enabled on your clusters
+    name: 0a15ec92-a229-4763-bb14-0ea34a568f8d
+  - # [Preview]: Enforce HTTPS ingress in Kubernetes cluster
+    name: 1a5b4dca-0b6f-4cf5-907c-56316bc1bf3d
+  - # [Preview]: Ensure services listen only on allowed ports in Kubernetes cluster
+    name: 233a2a17-77ca-4fb1-9b6b-69223d272a44
+    parameters:
+      allowedServicePortsList:
+        value:
+          - 443
+  - # Enforce internal load balancers in AKS
+    name: a74d8f00-2fd9-4ce4-968e-0ee1eb821698
+  - # [Preview]: Ensure containers listen only on allowed ports in Kubernetes cluster
+    name: 440b515e-a580-421e-abeb-b159a61ddcbc
+    parameters:
+      allowedContainerPortsList:
+        value:
+          - 443
+  - # [Preview]: Enforce labels on pods in Kubernetes cluster
+    name: 46592696-4c7b-4bf3-9e45-6c2763bdc0a6
+    parameters:
+      labelsList:
+        value:
+          - app
+  - # [Preview]: Do not allow privileged containers in Kubernetes cluster
+    name: 95edb821-ddaf-4404-9732-666045e056b4
+  - # [Preview]: Ensure container CPU and memory resource limits do not exceed the specified limits in Kubernetes cluster
+    name: e345eecc-fa47-480f-9e88-67dcc122b164
+    parameters:
+      cpuLimit:
+        value: 1000m
+      memoryLimit:
+        value: 2Gi
+  - # [Preview]: Ensure only allowed container images in Kubernetes cluster
+    name: febd0533-8e55-448f-b837-bd0e06f16469
+    parameters:
+      allowedContainerImagesRegex:
+        value: "^.+azurecr.io/.+$"
+
+policy_definitions:
+  audit_owner_tag_on_resources:
+    name: audit_owner_tag_on_resources
+    mode: Indexed
+    display_name: Audit Owner tag on resources
+    description: Audit existence of Owner tag. Does not apply to resource groups
+    metadata:
+      category: Tag
+    policy_rule:
+      if:
+        field: "tags[Owner]"
+        exists: "false"
+      then:
+        effect: audit
+  audit_owner_tag_on_resource_groups:
+    name: audit_owner_tag_on_resource_groups
+    mode: Indexed
+    display_name: Audit Owner tag on resource groups
+    description: Audit existence of Owner tag on resource groups.
+    metadata:
+      category: Tag
+    policy_rule:
+      if:
+        allOf:
+          - field: type
+            equals: Microsoft.Resources/subscriptions/resourceGroups
+          - field: "tags[Owner]"
+            exists: "false"
+      then:
+        effect: audit
+  audit_purpose_tag_on_resources:
+    name: audit_purpose_tag_on_resources
+    mode: Indexed
+    display_name: Audit Purpose tag on resources
+    description: Audit existence of Purpose tag. Does not apply to resource groups
+    metadata:
+      category: Tag
+    policy_rule:
+      if:
+        field: "tags[Purpose]"
+        exists: "false"
+      then:
+        effect: audit
+    parameters:
+      tagName:
+        type: String
+        metadata:
+          displayName: Tag Name
+          description: Name of the tag, such as 'environment'
+  audit_purpose_tag_on_resource_groups:
+    name: audit_purpose_tag_on_resource_groups
+    mode: Indexed
+    display_name: Audit Purpose tag on resource groups
+    description: Audit existence of Purpose tag on resource groups.
+    metadata:
+      category: Tag
+    policy_rule:
+      if:
+        allOf:
+          - field: type
+            equals: Microsoft.Resources/subscriptions/resourceGroups
+          - field: "tags[Purpose]"
+            exists: "false"
+      then:
+        effect: audit

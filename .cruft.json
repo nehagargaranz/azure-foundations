@@ -1,0 +1,20 @@
+{
+  "template": "https://source.servian.com/solutions/cloud-foundation/foundations-cookiecutter.git",
+  "commit": "7679b5068d3f488de7b353e8d6e7d5e311c20b7f",
+  "context": {
+    "cookiecutter": {
+      "project_name": "azure-foundations",
+      "cloud": "azure",
+      "container_image": "docker.servian.com/solutions/cloud-foundation/foundations-builder/base:latest",
+      "environments_folder_name": "environments",
+      "modules_folder_name": "modules",
+      "_template": "https://source.servian.com/solutions/cloud-foundation/foundations-cookiecutter.git"
+    }
+  },
+  "directory": null,
+  "skip": [
+    ".terraform-version",
+    ".terragrunt-version"
+  ],
+  "checkout": null
+}

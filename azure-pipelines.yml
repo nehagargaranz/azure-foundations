@@ -1,0 +1,81 @@
+---
+trigger:
+  - master
+
+pr:
+  - master
+
+pool:
+  vmImage: "ubuntu-latest"
+
+stages:
+  - stage: Validation
+    jobs:
+      - job: Validation
+        steps:
+          - task: AzureCLI@2
+            displayName: validate
+            inputs:
+              azureSubscription: $(connectionName)
+              addSpnToEnvironment: true
+              scriptType: "bash"
+              scriptLocation: "inlineScript"
+              inlineScript: |
+                set -e
+                export ARM_CLIENT_ID="$(servicePrincipalId)"
+                export ARM_CLIENT_SECRET="$(servicePrincipalKey)"
+                export ARM_TENANT_ID="$(tenantId)"
+                export ARM_SUBSCRIPTION_ID="$(subscriptionId)"
+                make download
+                make lint
+                make validate
+
+  - stage: Plan
+    dependsOn: Validation
+    condition: succeeded()
+    jobs:
+      - job: Plan
+        steps:
+          - task: AzureCLI@2
+            displayName: plan
+            inputs:
+              azureSubscription: $(connectionName)
+              addSpnToEnvironment: true
+              scriptType: "bash"
+              scriptLocation: "inlineScript"
+              inlineScript: |
+                set -e
+                export ARM_CLIENT_ID="$(servicePrincipalId)"
+                export ARM_CLIENT_SECRET="$(servicePrincipalKey)"
+                export ARM_TENANT_ID="$(tenantId)"
+                export ARM_SUBSCRIPTION_ID="$(subscriptionId)"
+                make download
+                make plan-all
+
+  - stage: Apply
+    dependsOn: Plan
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    jobs:
+      - deployment: apply
+        displayName: Apply
+        environment: servian-azure-foundations
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - task: AzureCLI@2
+                  displayName: apply
+                  inputs:
+                    azureSubscription: $(connectionName)
+                    addSpnToEnvironment: true
+                    scriptType: "bash"
+                    scriptLocation: "inlineScript"
+                    inlineScript: |
+                      set -e
+                      export ARM_CLIENT_ID="$(servicePrincipalId)"
+                      export ARM_CLIENT_SECRET="$(servicePrincipalKey)"
+                      export ARM_TENANT_ID="$(tenantId)"
+                      export ARM_SUBSCRIPTION_ID="$(subscriptionId)"
+                      make download
+                      make apply-all

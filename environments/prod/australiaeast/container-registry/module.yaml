@@ -1,0 +1,6 @@
+---
+sku: Premium
+georeplications:
+  - australiasoutheast
+allowed_ip_ranges:
+  - 1.2.3.4/32

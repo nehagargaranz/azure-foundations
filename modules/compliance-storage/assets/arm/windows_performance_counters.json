@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "workspaceName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the workspace."
+      }
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Location of the workspace."
+      }
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2020-03-01-preview",
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "name": "[parameters('workspaceName')]",
+      "location": "[parameters('location')]",
+      "properties": {},
+      "resources": [
+        {
+          "apiVersion": "2020-03-01-preview",
+          "type": "datasources",
+          "name": "WindowsPerfMemoryAvailableBytes",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Memory",
+            "instanceName": "*",
+            "intervalSeconds": 60,
+            "counterName": "Available MBytes "
+          }
+        },
+        {
+          "apiVersion": "2020-03-01-preview",
+          "type": "datasources",
+          "name": "WindowsPerfMemoryPercentageBytes",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Memory",
+            "instanceName": "*",
+            "intervalSeconds": 60,
+            "counterName": "% Committed Bytes in Use"
+          }
+        },
+        {
+          "apiVersion": "2020-03-01-preview",
+          "type": "datasources",
+          "name": "WindowsPerfProcessorPercentage",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "kind": "WindowsPerformanceCounter",
+          "properties": {
+            "objectName": "Processor",
+            "instanceName": "_Total",
+            "intervalSeconds": 60,
+            "counterName": "% Processor Time"
+          }
+        }
+      ]
+    }
+  ]
+}

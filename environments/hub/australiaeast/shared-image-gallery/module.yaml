@@ -1,0 +1,14 @@
+---
+images:
+  - image_name: "windows-server-2019"
+    os_type: "Windows"
+    hyper_v_generation: "V2"
+    publisher: "soe-image-factory"
+    offer: "microsoft-com-server-2019"
+    sku: "windows-2019"
+  - image_name: "ubuntu-2004-lts"
+    os_type: "Linux"
+    hyper_v_generation: "V2"
+    publisher: "soe-image-factory"
+    offer: "ubuntu-com-server-focal"
+    sku: "20_04-lts-gen2"

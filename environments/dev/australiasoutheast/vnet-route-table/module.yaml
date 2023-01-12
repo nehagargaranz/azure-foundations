@@ -1,0 +1,3 @@
+---
+create_resource_group: false
+disable_bgp_route_propagation: true

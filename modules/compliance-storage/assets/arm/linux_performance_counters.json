@@ -1,0 +1,85 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "workspaceName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the workspace."
+      }
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Specifies the location in which to create the workspace."
+      }
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2020-03-01-preview",
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "name": "[parameters('workspaceName')]",
+      "location": "[parameters('location')]",
+      "properties": {},
+      "resources": [
+        {
+          "apiVersion": "2020-03-01-preview",
+          "type": "datasources",
+          "name": "LinuxPerformanceLogicalDisk",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "kind": "LinuxPerformanceObject",
+          "properties": {
+            "objectName": "Logical Disk",
+            "instanceName": "*",
+            "intervalSeconds": 60,
+            "performanceCounters": [
+              {
+                "counterName": "% Used Inodes"
+              },
+              {
+                "counterName": "Free Megabytes"
+              },
+              {
+                "counterName": "% Used Space"
+              },
+              {
+                "counterName": "Disk Transfers/sec"
+              },
+              {
+                "counterName": "Disk Reads/sec"
+              },
+              {
+                "counterName": "Disk Writes/sec"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "2020-03-01-preview",
+          "type": "datasources",
+          "name": "LinuxPerformanceProcessor",
+          "dependsOn": [
+            "[concat('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+          ],
+          "kind": "LinuxPerformanceObject",
+          "properties": {
+            "objectName": "Processor",
+            "instanceName": "*",
+            "intervalSeconds": 60,
+            "performanceCounters": [
+              {
+                "counterName": "% Processor Time"
+              },
+              {
+                "counterName": "% Privileged Time"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

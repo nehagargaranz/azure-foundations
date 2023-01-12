@@ -1,0 +1,148 @@
+---
+terraform_state_resource_group_name: CloudFoundationRemoteState
+terraform_state_storage_account_name: ngaaueastate
+terraform_state_container_name: tfstate
+terraform_state_subscription_id: b03e688a-e8b7-45f8-ac20-9777d5f41741
+company_prefix: nga
+private_dns_zone_suffix: servian.internal
+# default / global location
+location: australiaeast
+tags:
+  Purpose: Cloud Foundations
+  Owner: Neha Garg
+service_health_alerts_email: neha.garg@servian.com
+security_center_contact_email: neha.garg@servian.com
+security_center_contact_phone: "+642102765816"
+security_center_pricing_tiers:
+  VirtualMachines: Free
+  AppServices: Free
+  SqlServers: Free
+  SqlServerVirtualMachines: Free
+  StorageAccounts: Standard
+  KubernetesService: Free
+  ContainerRegistry: Free
+  KeyVaults: Free
+security_center_autoprovision_vm_agent: true
+resource_group_lock: false
+compliance_locations: # List of Azure Locations where compliance resources should be enabled
+  - australiaeast
+  - australiasoutheast
+vm_management_location: australiasoutheast # See https://docs.microsoft.com/en-gb/azure/automation/how-to/region-mappings for allowed regions
+location_abbreviations:
+  australiacentral: auce
+  australiacentral2: auc2
+  australiaeast: auea
+  australiasoutheast: ause
+  brazilsouth: brso
+  canadacentral: cace
+  canadaeast: caea
+  centralindia: ince
+  centralus: usce
+  eastasia: asea
+  eastus: usea
+  eastus2: use2
+  francecentral: frce
+  francesouth: frso
+  japaneast: jaea
+  japanwest: jawe
+  koreacentral: koce
+  koreasouth: koso
+  northcentralus: usnc
+  northeurope: euno
+  southafricanorth: sano
+  southafricawest: sawe
+  southcentralus: ussc
+  southeastasia: assw
+  southindia: inso
+  uksouth: ukso
+  ukwest: ukwe
+  westcentralus: uswc
+  westeurope: euwe
+  westindia: inwe
+  westus: uswe
+  westus2: usw2
+dns_forwarder_servers:
+  - domain: example.com
+    address: 8.8.8.8
+  - domain: servian.com
+    address: 1.1.1.1
+dns_forwarder_ssh_public_keys:
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYxD8p8c59FNbeyLOKjf8K3se5m5d7KJtbT3y0Xudkut/DhHZsk9HDawlWABATjd8hMGilnypy98yFmSwAa0d1zfthEJGY9RUJQ10JeADydTDJpNfrWYCikZD5J7yuZQskiaUCd1p0YNLSYwRy3jn6IuyNaCGLcJ1ipBAy0NQz9/E71StchYPI7K5KaATBn0Iur/Sk0gC0DItN9MDEqbTJTtIll5M4w5AqlWo9H/u2rYnAL55zP+72c+zr0GECQnvDxQ9ePsvC8lTK5rQ+XbhMn6JWuXlhbyxQpMgE2v+RKEKm24AghosvDOyOMrA0RM8Ekpuag5NaugGs2bXUSYGLh+Q1rnLAF9xbaGGZPhoqIuYHYO/NrJVihHr2DitNgvmL/NGxaq0k2FhFArc8tIZcajYqbFcIqhAik3hwHK0+ohsOnPGKoVa9nj8wv7b/fA8MsJS/05EAzsVXq3cIKO5ImJCVNmXBaplUj5Do1B8DC8A3QSx8U6KQ9UWwaDK4uR0="
+# private dns zones for private endpoints
+# refer to https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-dns#azure-services-dns-zone-configuration
+private_link_dns_zones:
+  # SQL DB and Azure Synapse Analytics
+  - zone_name: privatelink.database.windows.net
+    enabled: true
+  # Storage Account Blob
+  - zone_name: privatelink.blob.core.windows.net
+    enabled: true
+  # Storage Account Table
+  - zone_name: privatelink.table.core.windows.net
+    enabled: true
+  # Storage Account Queue
+  - zone_name: privatelink.queue.core.windows.net
+    enabled: true
+  # Storage Account File
+  - zone_name: privatelink.file.core.windows.net
+    enabled: true
+  # Storage Account Web
+  - zone_name: privatelink.web.core.windows.net
+    enabled: true
+  # Data Lake File System Gen2
+  - zone_name: privatelink.dfs.core.windows.net
+    enabled: true
+  # Azure Cosmos DB Core SQL
+  - zone_name: privatelink.documents.azure.com
+    enabled: true
+  # Azure Cosmos DB MongoDB
+  - zone_name: privatelink.mongo.cosmos.azure.com
+    enabled: true
+  # Azure Cosmos DB Cassandra
+  - zone_name: privatelink.cassandra.cosmos.azure.com
+    enabled: true
+  # Azure Cosmos DB Gremlin
+  - zone_name: privatelink.gremlin.cosmos.azure.com
+    enabled: true
+  # Azure Cosmos DB Table
+  - zone_name: privatelink.table.cosmos.azure.com
+    enabled: true
+  # Azure Database for PostgreSQL
+  - zone_name: privatelink.postgres.database.azure.com
+    enabled: true
+  # Azure Database for MySQL
+  - zone_name: privatelink.mysql.database.azure.com
+    enabled: true
+  # Azure Database for MariaDB
+  - zone_name: privatelink.mariadb.database.azure.com
+    enabled: true
+  # Azure Key Vault
+  - zone_name: privatelink.vaultcore.azure.net
+    enabled: true
+  # Azure Kubernetes Service - Kubernetes API
+  - zone_name: privatelink.{region}.azmk8s.io
+    enabled: true
+  # Azure Container Registry
+  - zone_name: privatelink.azurecr.io
+    enabled: true
+  # Azure App Configuration
+  - zone_name: privatelink.azconfig.io
+    enabled: true
+  # Azure Event Hub, Azure Service Bus and Azure Relay
+  - zone_name: privatelink.servicebus.windows.net
+    enabled: true
+  # Azure Event Grid topic and domain
+  - zone_name: privatelink.eventgrid.azure.net
+    enabled: true
+  # Azure WebApps
+  - zone_name: privatelink.azurewebsites.net
+    enabled: true
+  # Azure Machine Learning
+  - zone_name: privatelink.api.azureml.ms
+    enabled: true
+  # SignalR Service
+  - zone_name: privatelink.service.signalr.net
+    enabled: true
+  # IoT Hub Service
+  - zone_name: privatelink.azure-devices.net
+    enabled: true

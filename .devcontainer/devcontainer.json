@@ -1,0 +1,58 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+{
+    "name": "builder",
+    "image": "docker.servian.com/solutions/cloud-foundation/foundations-builder/base:latest",
+    "containerUser": "builder",
+    "mounts": [
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.azure,target=/home/builder/.azure,type=bind,consistency=cached",
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/builder/.ssh,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/.terraform-version,target=/opt/tfenv/version,type=bind,consistency=cached",
+        "source=${localWorkspaceFolder}/.terragrunt-version,target=/opt/tgenv/version,type=bind,consistency=cached",
+        "source=terraform,target=/opt/tfenv/versions,type=volume",
+        "source=terragrunt,target=/opt/tgenv/versions,type=volume",
+        "source=vscode-server,target=/home/builder/.vscode-server,type=volume",
+        "source=zsh_history,target=/home/builder/.zsh_history,type=volume",
+    ],
+    "remoteEnv": {
+        "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}",
+        "TGENV_AUTO_INSTALL": "true",
+        "TFENV_AUTO_INSTALL": "true",
+        "ARM_PARTNER_ID": "59e2c354-c7ea-52ea-9d8a-675c75658243",
+        "TERRAGRUNT_DOWNLOAD": "/opt/terragrunt-cache",
+        "TF_LOG": "${localEnv:TF_LOG}",
+        "ARM_CLIENT_ID": "${localEnv:ARM_CLIENT_ID}",
+        "ARM_CLIENT_SECRET": "${localEnv:ARM_CLIENT_SECRET}",
+        "ARM_SUBSCRIPTION_ID": "${localEnv:ARM_SUBSCRIPTION_ID}",
+        "ARM_TENANT_ID": "${localEnv:ARM_TENANT_ID}"
+    },
+    "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.profiles.linux": {
+            "bash": {
+                "path": "bash",
+                "icon": "terminal-bash"
+            },
+            "zsh": {
+                "path": "zsh"
+            },
+            "fish": {
+                "path": "fish"
+            },
+            "tmux": {
+                "path": "tmux",
+                "icon": "terminal-tmux"
+            },
+            "pwsh": {
+                "path": "pwsh",
+                "icon": "terminal-powershell"
+            }
+        }
+    },
+    "extensions": [
+        "ms-azuretools.vscode-docker",
+        "hashicorp.terraform",
+        "mutantdino.resourcemonitor",
+        "editorconfig.editorconfig"
+    ],
+    "postCreateCommand": "make download"
+}

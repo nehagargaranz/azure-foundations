@@ -1,0 +1,11 @@
+---
+role_assignment_service_principals:
+  - service_principal_name: Servian-Cloud-Foundation-Service-Account
+    role_definition_name: Owner
+  - service_principal_name: tenancy-global-service-principal-foundations
+    role_definition_name: Owner
+role_assignment_groups:
+  - group_name: Azure Foundations Developers
+    role_definition_name: Owner
+  - group_name: Azure Foundations Developers
+    role_definition_name: User Access Administrator

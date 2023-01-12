@@ -1,0 +1,19 @@
+---
+virtual_network_id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-hub-vnet-rg/providers/Microsoft.Network/virtualNetworks/mock-hub-vnet
+virtual_network_name: mock-hub-vnet
+resource_group_name: mock-hub-vnet-rg
+subscription_id: 00000000-0000-0000-0000-000000000000
+dns_forwarder_ip_address: 10.1.1.1
+subnets:
+  AzureBastionSubnet:
+    name: AzureBastionSubnet
+    id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-hub-vnet-rg/providers/Microsoft.Network/virtualNetworks/mock-hub-vnet/subnets/AzureBastionSubnet
+  AzureFirewallSubnet:
+    name: AzureFirewallSubnet
+    id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-hub-vnet-rg/providers/Microsoft.Network/virtualNetworks/mock-hub-vnet/subnets/AzureFirewallSubnet
+  DnsForwarderSubnet:
+    name: DnsForwarderSubnet
+    id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-hub-vnet-rg/providers/Microsoft.Network/virtualNetworks/mock-hub-vnet/subnets/DnsForwarderSubnet
+  GatewaySubnet:
+    name: GatewaySubnet
+    id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-hub-vnet-rg/providers/Microsoft.Network/virtualNetworks/mock-hub-vnet/subnets/GatewaySubnet

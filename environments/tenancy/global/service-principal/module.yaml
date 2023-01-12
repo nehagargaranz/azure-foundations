@@ -1,0 +1,23 @@
+---
+service_principals:
+  - name_suffix: foundations
+    required_resource_access:
+      - application_display_name: Windows Azure Active Directory
+        application_resource_access:
+          - Application.ReadWrite.OwnedBy
+          - Directory.Read.All
+        delegated_resource_access:
+          - User.Read
+      - application_display_name: Microsoft Graph
+        application_resource_access:
+          - AppRoleAssignment.ReadWrite.All
+        delegated_resource_access:
+          - Directory.ReadWrite.All
+          - User.Read
+    role_assignments:
+      - scope: "/providers/Microsoft.Management/managementGroups/9b6fffe9-3cab-4a9a-82cb-1adb7d8eae9b"
+        role_definition_name: User Access Administrator
+      - scope: "/providers/Microsoft.Management/managementGroups/9b6fffe9-3cab-4a9a-82cb-1adb7d8eae9b"
+        role_definition_name: Management Group Contributor
+      - scope: "/providers/Microsoft.Management/managementGroups/9b6fffe9-3cab-4a9a-82cb-1adb7d8eae9b"
+        role_definition_name: Resource Policy Contributor

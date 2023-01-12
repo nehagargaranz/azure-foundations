@@ -1,0 +1,3 @@
+---
+function_app_identity: 00000000-0000-0000-0000-000000000000
+function_id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-rg/providers/Microsoft.Web/sites/mock-func/functions/MockFunction

@@ -1,0 +1,9 @@
+---
+virtual_network_id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-spoke-vnet-rg/providers/Microsoft.Network/virtualNetworks/mock-spoke-vnet
+virtual_network_name: mock-spoke-vnet
+resource_group_name: mock-spoke-vnet-rg
+subnets:
+  MockSubnet1:
+    id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-spoke-vnet-rg/providers/Microsoft.Network/virtualNetworks/mock-spoke-vnet/subnets/MockSubnet1
+  MockSubnet2:
+    id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-spoke-vnet-rg/providers/Microsoft.Network/virtualNetworks/mock-spoke-vnet/subnets/MockSubnet2

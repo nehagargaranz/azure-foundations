@@ -1,0 +1,16 @@
+.terragrunt-cache
+.terraform
+*.tfvars
+.terraform.lock.hcl
+*.pem
+*terraform.tfstate*
+tfplan
+Checking
+crash.log
+# Golang stuff - remove from .gitignore if you want reproducible builds
+Gopkg.lock
+vendor/
+# End of Golang stuff
+*~
+.DS_Store
+temp/

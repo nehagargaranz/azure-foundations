@@ -1,0 +1,4 @@
+---
+location: australiaeast
+vnet_address_space: 10.0.0.0/23
+dns_forwarder_ip_address: 10.0.1.212

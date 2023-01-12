@@ -1,0 +1,23 @@
+---
+# These are test rules
+network_security_rules:
+  - subnet_name: "Data"
+    name: "Allow-Data-to-AzureCloud"
+    priority: 300
+    direction: "Outbound"
+    access: "Allow"
+    protocol: "Tcp"
+    source_port_range: "*"
+    destination_port_range: "*"
+    source_address_prefix: "*"
+    destination_address_prefix: "AzureCloud"
+  - subnet_name: "Data"
+    name: "Allow-Data-to-1-1-1-1"
+    priority: 301
+    direction: "Outbound"
+    access: "Allow"
+    protocol: "*"
+    source_port_range: "*"
+    destination_port_range: "*"
+    source_address_prefix: "*"
+    destination_address_prefix: "1.1.1.1/32"

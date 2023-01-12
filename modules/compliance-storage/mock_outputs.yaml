@@ -1,0 +1,37 @@
+---
+compliance_storage:
+  storage_accounts:
+    australiaeast:
+      id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-compliance-storage-rg/providers/Microsoft.Storage/storageAccounts/mockcomplianceauealogs
+    australiasoutheast:
+      id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-compliance-storage-rg/providers/Microsoft.Storage/storageAccounts/mockcomplianceauselogs
+    centralindia:
+      id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-compliance-storage-rg/providers/Microsoft.Storage/storageAccounts/mockcomplianceincelogs
+    southindia:
+      id: /subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/mock-compliance-storage-rg/providers/Microsoft.Storage/storageAccounts/mockcomplianceinsologs
+  storage_account_retention_in_days: 0
+  log_analytics_workspaces:
+    australiaeast:
+      workspace_id: 00000000-0000-0000-0000-000000000000
+      location: australiaeast
+      id: /subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/mock-compliance-storage-rg/providers/microsoft.operationalinsights/workspaces/mock-compliance-auea-logs
+    australiasoutheast:
+      workspace_id: 00000000-0000-0000-0000-000000000000
+      location: australiasoutheast
+      id: /subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/mock-compliance-storage-rg/providers/microsoft.operationalinsights/workspaces/mock-compliance-ause-logs
+    centralindia:
+      workspace_id: 00000000-0000-0000-0000-000000000000
+      location: centralindia
+      id: /subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/mock-compliance-storage-rg/providers/microsoft.operationalinsights/workspaces/mock-compliance-ince-logs
+    southindia:
+      workspace_id: 00000000-0000-0000-0000-000000000000
+      location: southindia
+      id: /subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/mock-compliance-storage-rg/providers/microsoft.operationalinsights/workspaces/mock-compliance-inso-logs
+  log_analytics_retention_in_days: 90
+vm_management:
+  storage_account:
+    name: mockvmmanagement
+    primary_connection_string: DefaultEndpointsProtocol=https;AccountName=mockvmmanagement;AccountKey=abcdefghijklmnopqrstuvwxyz==;EndpointSuffix=core.windows.net
+  log_analytics_workspace:
+    workspace_id: 00000000-0000-0000-0000-000000000000
+    id: /subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/mock-compliance-storage-rg/providers/microsoft.operationalinsights/workspaces/mockvmmanagement

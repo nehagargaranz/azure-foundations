@@ -1,0 +1,58 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:base",
+        ":prHourlyLimitNone",
+        ":prConcurrentLimitNone"
+    ],
+    "postUpgradeTasks": {
+        "commands": [
+            "make docs"
+        ],
+        "fileFilters": [
+            "**/README.md"
+        ],
+        "executionMode": "update"
+    },
+    "terraform": {
+        "fileMatch": [
+            "\\.tf$",
+            "\\.hcl"
+        ],
+        "versioning": "hashicorp"
+    },
+    "packageRules": [
+        {
+            "managers": [
+                "regex"
+            ],
+            "packageNames": [
+                "hashicorp/terraform",
+                "gruntwork-io/terragrunt"
+            ],
+            "extractVersion": "^v(?<version>.*)$"
+        }
+    ],
+    "regexManagers": [
+        {
+            "fileMatch": [
+                "^.terraform-version$"
+            ],
+            "matchStrings": [
+                "(?<currentValue>.*?)\n"
+            ],
+            "depNameTemplate": "hashicorp/terraform",
+            "datasourceTemplate": "github-releases"
+        },
+        {
+            "fileMatch": [
+                "^.terragrunt-version$"
+            ],
+            "matchStrings": [
+                "(?<currentValue>.*?)\n"
+            ],
+            "depNameTemplate": "gruntwork-io/terragrunt",
+            "datasourceTemplate": "github-releases"
+        }
+    ]
+}

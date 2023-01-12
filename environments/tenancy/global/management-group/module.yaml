@@ -1,0 +1,3 @@
+---
+management_group_root: true
+management_group_parent_id: /providers/Microsoft.Management/managementGroups/training-03

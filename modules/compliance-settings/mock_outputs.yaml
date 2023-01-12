@@ -1,0 +1,11 @@
+---
+network_watcher_resource_group_name: NetworkWatcherRG
+network_watchers:
+  australiaeast:
+    name: mock-auea-nw
+  australiasoutheast:
+    name: mock-ause-nw
+  centralindia:
+    name: mock-ince-nw
+  southindia:
+    name: mock-inso-nw

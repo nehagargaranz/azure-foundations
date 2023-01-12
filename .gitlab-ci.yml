@@ -1,0 +1,35 @@
+---
+default:
+  image: docker.servian.com/solutions/cloud-foundation/foundations-builder/base:latest
+  before_script:
+    - make download
+  tags:
+    - docker
+    - servianinternal
+
+variables:
+  STATE_LOCK_PLAN: "false"
+
+stages:
+  - lint-and-validate
+  - plan
+  - deploy
+
+lint-and-validate:
+  stage: lint-and-validate
+  script:
+    - make lint
+    - make validate
+
+plan:
+  stage: plan
+  script:
+    - make plan-all
+
+deploy:
+  stage: deploy
+  script:
+    - make apply-all
+  resource_group: terraform
+  only:
+    - master
